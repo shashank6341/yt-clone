@@ -37,6 +37,10 @@
     &__details {
         display: flex;
         align-items: center;
+
+        span {
+            margin: 0.2rem;
+        }
     }
 
     &__channel {

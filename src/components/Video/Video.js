@@ -1,31 +1,86 @@
-import React from "react";
-import "./_video.scss";
-
+import React, { useEffect, useState } from "react";
 import { AiFillEye } from "react-icons/ai";
+import moment from "moment";
+import numeral from "numeral";
 
-const Video = () => {
+import "./_video.scss";
+import request from "../../api";
+
+const Video = ({ video }) => {
+  const {
+    id,
+    snippet: {
+      channelId,
+      channelTitle,
+      title,
+      publishedAt,
+      thumbnails: { medium },
+    },
+  } = video;
+
+  const [views, setViews] = useState(null);
+  const [duration, setDuration] = useState(null);
+  const [channelIcon, setChannelIcon] = useState(null);
+
+  // Moment Formatter
+  const seconds = moment.duration(duration).asSeconds();
+  const _duration = moment.utc(seconds * 1000).format("mm:ss");
+
+  // Video ID Extractor
+  const _videoId = id?.videoId || id;
+
+  // Get Video Details
+  useEffect(() => {
+    const get_video_details = async () => {
+      const {
+        data: { items },
+      } = await request("/videos", {
+        params: {
+          part: "contentDetails,statistics",
+          id: _videoId,
+        },
+      });
+      setDuration(items[0].contentDetails.duration)
+      setViews(items[0].statistics.viewCount)
+    };
+    get_video_details();
+  }, [_videoId]);
+
+  // Get Channel Icon
+  useEffect(() => {
+    const get_channel_icon = async () => {
+      const {
+        data: { items },
+      } = await request("/channels", {
+        params: {
+          part: "snippet",
+          id: channelId,
+        },
+      });
+      setChannelIcon(items[0].snippet.thumbnails.default)
+    };
+    get_channel_icon();
+  }, [channelId]);
+
   return (
     <div className="video">
       <div className="video__top">
-        <img
-          src="https://i.ytimg.com/vi/RY63Nw0w33w/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBimbmrYs8flxBFF5658A6lP4Om6w"
-          alt="Thumbnail"
-        />
-        <span>09:02</span>
+        <img src={medium.url} alt="Thumbnail" />
+        <span>{_duration}</span>
       </div>
-      <div className="video__tile">OnePlus 9 Review: Sneaky Value!</div>
+      <div className="video__title">{title}</div>
       <div className="video__details">
         <span>
-          <AiFillEye /> 3M Views •
+          <AiFillEye /> {numeral(views).format("0.a")} Views • 
         </span>
-        <span> 10 Days Ago</span>
+        <span>{moment(publishedAt).fromNow()}</span>
       </div>
       <div className="video__channel">
         <img
-          src="https://yt3.ggpht.com/ytc/AAUvwngW9TQgw7E7NqS3Qzd3Up3tjUzkpvMXPWAhYf3LaQ=s68-c-k-c0x00ffffff-no-rj"
-          alt="SVBHD"
+          src={channelIcon?.url}
+          alt=""
         />
-        <p>Shashank Verma</p>
+        <p>{channelTitle}</p>
       </div>
     </div>
   );
