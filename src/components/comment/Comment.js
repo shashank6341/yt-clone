@@ -5,19 +5,22 @@ import moment from "moment";
 
 import "./_comment.scss";
 
-const Comment = () => {
+const Comment = ({comment}) => {
+
+  const {authorDisplayName, authorProfileImageUrl, publishedAt, textDisplay} = comment;
+
   return (
     <div className="comment p-1 d-flex">
       <img
-        src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043260-avatar-male-man-portrait_113269.png"
+        src={authorProfileImageUrl}
         alt="avatar"
         className="rounded-circle mr-3"
       />
       <div className="comment__body">
         <p className="comment__header mb-2 mt-1">
-          Shashank Verma • {moment("2021-03-26").fromNow()}
+          {authorDisplayName} • {moment(publishedAt).fromNow()}
         </p>
-        <p className="mb-2">Amazing Music!</p>
+        <p className="mb-2">{textDisplay}</p>
       </div>
     </div>
   );

@@ -44,7 +44,7 @@ const WatchScreen = () => {
         )}
 
         {/* Comments Section */}
-        <Comments />
+        <Comments videoId={id} totalComments = {video?.statistics?.commentCount}/>
       </Col>
 
       {/* Sidebar Video Suggestions */}

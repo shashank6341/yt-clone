@@ -68,7 +68,7 @@ const Video = ({ video }) => {
   }, [channelId]);
 
 const handleVideoClick = () => {
-  history.push("/watch/${_videoId}")
+  history.push(`/watch/${_videoId}`)
 }
 
   return (
