@@ -7,6 +7,8 @@ import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
 import HomeScreen from "./screens/homeScreen/HomeScreen";
 import LoginScreen from "./screens/loginScreen/LoginScreen";
+import SearchScreen from "./screens/searchScreen/SearchScreen";
+import { SubscriptionScreen } from "./screens/subscriptionScreen/SubscriptionScreen";
 import WatchScreen from "./screens/watchScreen/WatchScreen";
 
 import "./_app.scss";
@@ -59,16 +61,30 @@ const App = () => {
       </Route>
 
       {/* Search Result Route */}
-      <Route path="/search">
+      <Route path="/search/:query">
         <Layout>
-          <h1>Search Results</h1>
+          <SearchScreen />
         </Layout>
       </Route>
 
       {/* Watch Screen Route */}
       <Route path="/watch/:id">
         <Layout>
-          <WatchScreen/>
+          <WatchScreen />
+        </Layout>
+      </Route>
+
+      {/* Subscription Screen Route */}
+      <Route path="/feed/subscriptions">
+        <Layout>
+          <SubscriptionScreen />
+        </Layout>
+      </Route>
+
+      {/* Channel Screen Route */}
+      <Route path="/channel/:channelId">
+        <Layout>
+          <h1>Channel Screen</h1>
         </Layout>
       </Route>
 

@@ -169,6 +169,7 @@ import {
  
  export const getSubscribedChannels = () => async (dispatch, getState) => {
     try {
+       console.log("getSubscribedChannels");
        dispatch({
           type: SUBSCRIPTIONS_CHANNEL_REQUEST,
        })
