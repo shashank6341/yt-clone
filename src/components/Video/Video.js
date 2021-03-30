@@ -6,6 +6,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import "./_video.scss";
 import request from "../../api";
+import { useHistory } from "react-router";
 
 const Video = ({ video }) => {
   const {
@@ -29,6 +30,9 @@ const Video = ({ video }) => {
 
   // Video ID Extractor
   const _videoId = id?.videoId || id;
+
+  // Get History
+  const history = useHistory();
 
   // Get Video Details
   useEffect(() => {
@@ -63,8 +67,12 @@ const Video = ({ video }) => {
     get_channel_icon();
   }, [channelId]);
 
+const handleVideoClick = () => {
+  history.push("/watch/${_videoId}")
+}
+
   return (
-    <div className="video">
+    <div className="video" onClick={handleVideoClick}>
       <div className="video__top">
         {/* <img src={medium.url} alt="Thumbnail" /> */}
         <LazyLoadImage src={medium.url} effect="blur"/>

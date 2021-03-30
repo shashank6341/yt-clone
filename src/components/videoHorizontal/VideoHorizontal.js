@@ -30,7 +30,7 @@ const VideoHorizontal = () => {
         <p className="videoHorizontal__title mb-1">
           Vlog 34: Day in life of a Youtuber
         </p>
-        <div class="videoHorizontal__details">
+        <div className="videoHorizontal__details">
           {numeral("6102").format("0.a")} Views  • 
           <span className="ml-1">{moment("2020-09-06").fromNow()}</span>
         </div>
