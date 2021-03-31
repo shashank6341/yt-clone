@@ -8,7 +8,7 @@ import "./_video.scss";
 import request from "../../api";
 import { useHistory } from "react-router";
 
-const Video = ({ video }) => {
+const Video = ({ video, channelScreen }) => {
   const {
     id,
     snippet: {
@@ -18,6 +18,7 @@ const Video = ({ video }) => {
       publishedAt,
       thumbnails: { medium },
     },
+    contentDetails,
   } = video;
 
   const [views, setViews] = useState(null);
@@ -29,7 +30,7 @@ const Video = ({ video }) => {
   const _duration = moment.utc(seconds * 1000).format("mm:ss");
 
   // Video ID Extractor
-  const _videoId = id?.videoId || id;
+  const _videoId = id?.videoId || contentDetails?.videoId || id;
 
   // Get History
   const history = useHistory();
@@ -45,8 +46,8 @@ const Video = ({ video }) => {
           id: _videoId,
         },
       });
-      setDuration(items[0].contentDetails.duration)
-      setViews(items[0].statistics.viewCount)
+      setDuration(items[0].contentDetails.duration);
+      setViews(items[0].statistics.viewCount);
     };
     get_video_details();
   }, [_videoId]);
@@ -62,37 +63,36 @@ const Video = ({ video }) => {
           id: channelId,
         },
       });
-      setChannelIcon(items[0].snippet.thumbnails.default)
+      setChannelIcon(items[0].snippet.thumbnails.default);
     };
     get_channel_icon();
   }, [channelId]);
 
-const handleVideoClick = () => {
-  history.push(`/watch/${_videoId}`)
-}
+  const handleVideoClick = () => {
+    history.push(`/watch/${_videoId}`);
+  };
 
   return (
     <div className="video" onClick={handleVideoClick}>
       <div className="video__top">
         {/* <img src={medium.url} alt="Thumbnail" /> */}
-        <LazyLoadImage src={medium.url} effect="blur"/>
+        <LazyLoadImage src={medium.url} effect="blur" />
         <span className="video__top__duration">{_duration}</span>
       </div>
       <div className="video__title">{title}</div>
       <div className="video__details">
         <span>
-          <AiFillEye /> {numeral(views).format("0.a")} Views • 
+          <AiFillEye /> {numeral(views).format("0.a")} Views •
         </span>
         <span>{moment(publishedAt).fromNow()}</span>
       </div>
-      <div className="video__channel">
-        {/* <img
-          src={channelIcon?.url}
-          alt=""
-        /> */}
-        <LazyLoadImage src={channelIcon?.url} effect="blur"/>
-        <p>{channelTitle}</p>
-      </div>
+
+      {!channelScreen && (
+        <div className="video__channel">
+          <LazyLoadImage src={channelIcon?.url} effect="blur" />
+          <p>{channelTitle}</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -25,7 +25,7 @@ const VideoHorizontal = ({ video, searchScreen, subscriptionScreen }) => {
     },
   } = video;
 
-  const isVideo = !id.kind === "youtube#channel" || subscriptionScreen;
+  const isVideo = !(id.kind === "youtube#channel" || subscriptionScreen);
 
   const [views, setViews] = useState(null);
   const [duration, setDuration] = useState(null);

@@ -5,6 +5,7 @@ import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 
 import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
+import ChannelScreen from "./screens/channelScreen/ChannelScreen";
 import HomeScreen from "./screens/homeScreen/HomeScreen";
 import LoginScreen from "./screens/loginScreen/LoginScreen";
 import SearchScreen from "./screens/searchScreen/SearchScreen";
@@ -84,7 +85,7 @@ const App = () => {
       {/* Channel Screen Route */}
       <Route path="/channel/:channelId">
         <Layout>
-          <h1>Channel Screen</h1>
+          <ChannelScreen/>
         </Layout>
       </Route>
 
