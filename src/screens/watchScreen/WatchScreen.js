@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 
 import "./_watchScreen.scss";
 import Comments from "../../components/comments/Comments";
@@ -31,6 +32,9 @@ const WatchScreen = () => {
   return (
     <Row>
       {/* Video Player */}
+      <Helmet>
+        <title>{video?.snippet?.title}</title>
+      </Helmet>
       <Col lg={8}>
         <div className="watchScreen__player">
           <iframe

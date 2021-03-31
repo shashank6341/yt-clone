@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
+import CustomHelmet from "../../components/customHemlet/CustomHelmet";
 import VideoHorizontal from "../../components/videoHorizontal/VideoHorizontal";
 import { getSubscribedChannels } from "../../redux/actions/videos.action";
 
@@ -19,6 +20,7 @@ export const SubscriptionScreen = () => {
 
   return (
     <Container fluid>
+      <CustomHelmet title="Subscription" />
       {!loading ? (
         videos?.map((video) => <VideoHorizontal video={video} key={video.id} subscriptionScreen/>)
       ) : (

@@ -16,6 +16,7 @@ const Comments = ({ videoId, totalComments }) => {
   }, [videoId, dispatch]);
 
   const { loading, comments } = useSelector((state) => state.commentsList);
+  const { photoUrl } = useSelector((state) => state.auth?.user);
 
   const _comments = comments?.map(
     (comment) => comment.snippet.topLevelComment.snippet
@@ -35,7 +36,7 @@ const Comments = ({ videoId, totalComments }) => {
       <p>{totalComments} Comments</p>
       <div className="comments__form d-flex w-100 my-2">
         <img
-          src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043260-avatar-male-man-portrait_113269.png"
+          src={photoUrl}
           alt="avatar"
           className="rounded-circle mr-3"
         />

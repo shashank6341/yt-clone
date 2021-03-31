@@ -11,6 +11,7 @@ import {
   getPopularVideos,
   getVideosByCategory,
 } from "../../redux/actions/videos.action";
+import CustomHelmet from "../../components/customHemlet/CustomHelmet";
 
 
 const HomeScreen = () => {
@@ -33,6 +34,7 @@ const HomeScreen = () => {
 
   return (
     <Container>
+      <CustomHelmet/>
       <CategoriesBar />
       <InfiniteScroll
         dataLength={videos.length}

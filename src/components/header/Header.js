@@ -5,6 +5,8 @@ import { FaBars } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdNotifications, MdApps } from "react-icons/md";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Header = ({ handleToggleSidebar }) => {
   const [input, setInput] = useState("");
@@ -14,8 +16,10 @@ const Header = ({ handleToggleSidebar }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    history.push(`/search/${input}`)
+    history.push(`/search/${input}`);
   };
+
+  const { photoUrl } = useSelector((state) => state.auth?.user);
 
   return (
     <div className="header">
@@ -24,11 +28,13 @@ const Header = ({ handleToggleSidebar }) => {
         size={26}
         onClick={() => handleToggleSidebar()}
       />
-      <img
-        src="http://pngimg.com/uploads/youtube/youtube_PNG2.png"
-        alt="Youtube Logo"
-        className="header__logo"
-      />
+      <Link to="/">
+        <img
+          src="http://pngimg.com/uploads/youtube/youtube_PNG2.png"
+          alt="Youtube Logo"
+          className="header__logo"
+        />
+      </Link>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -44,10 +50,7 @@ const Header = ({ handleToggleSidebar }) => {
       <div className="header__icons">
         <MdNotifications size={28} />
         <MdApps size={28} />
-        <img
-          src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043260-avatar-male-man-portrait_113269.png"
-          alt="avatar"
-        />
+        <img src={photoUrl} alt="avatar" />
       </div>
     </div>
   );
