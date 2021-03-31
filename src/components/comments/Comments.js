@@ -16,7 +16,12 @@ const Comments = ({ videoId, totalComments }) => {
   }, [videoId, dispatch]);
 
   const { loading, comments } = useSelector((state) => state.commentsList);
-  const { photoUrl } = useSelector((state) => state.auth?.user);
+  const { photoUrl } = useSelector((state) => {
+    if(state.auth?.user !== null) {
+      return state.auth?.user;
+    }
+    return "https://cdn.icon-icons.com/icons2/1736/PNG/512/4043260-avatar-male-man-portrait_113269.png";
+  });
 
   const _comments = comments?.map(
     (comment) => comment.snippet.topLevelComment.snippet
