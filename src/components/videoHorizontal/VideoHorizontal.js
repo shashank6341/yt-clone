@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { AiFillEye } from "react-icons/ai";
 import moment from "moment";
 import numeral from "numeral";
 import { LazyLoadImage } from "react-lazy-load-image-component";

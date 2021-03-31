@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
 import VideoHorizontal from "../../components/videoHorizontal/VideoHorizontal";
 import { getSubscribedChannels } from "../../redux/actions/videos.action";
 
